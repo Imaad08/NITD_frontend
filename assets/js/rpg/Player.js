@@ -69,7 +69,7 @@ class Player {
         // Set the initial size of the player
         this.size = GameEnv.innerHeight / this.scaleFactor;
         // Initialize the player's position and velocity
-        this.position = { x: 0, y: GameEnv.innerHeight - this.size };
+        this.position = { x: 50, y: 80};
         this.velocity = { x: 0, y: 0 };
         // Set the initial size and velocity of the player
         this.resize();
@@ -142,31 +142,79 @@ class Player {
     update() {
         // Update begins by drawing the player object
         this.draw();
+    
+        // Get player's position, using Math.floor to ensure pixel alignment
+        const xPos = Math.floor(this.position.x);
+        const yPos = Math.floor(this.position.y);
+        
+        // Player's width and height (280x256)
+        const playerWidth = this.width-1;  // Assuming this.width is 280
+        const playerHeight = this.height-1; // Assuming this.height is 256
+    
+        // Check a subset of pixels in the player's bounding box
+        const sampleRate = 10; // You can adjust this to balance performance (check every 10th pixel)
+        const imageData = GameEnv.ctx.getImageData(xPos, yPos, playerWidth, playerHeight);
+        const pixels = imageData.data; // This returns an array [r, g, b, a, r, g, b, a, ...]
+    
+        const isBlack = (r, g, b, a) => {
+            return r === 0 && g === 0 && b === 0 && a === 255;
+        };
+    
+        const isRed = (r, g, b, a) => {
+            return r === 237 && g === 28 && b === 36 && a === 255; // Checking for the new red color
+        };
+    
+        // Check pixels within the player's bounding box at the sample rate
+        for (let y = 0; y < playerHeight; y += sampleRate) {
+            for (let x = 0; x < playerWidth; x += sampleRate) {
+                const index = (y * playerWidth + x) * 4; // Index for the (r, g, b, a) values
+                const r = pixels[index];
+                const g = pixels[index + 1];
+                const b = pixels[index + 2];
+                const a = pixels[index + 3];
+                
+                //console.log(`Middle pixel RGB: R=${r}, G=${g}, B=${b}, A=${a}`);
+
+                if (isBlack(r, g, b, a)) {
+                    // Reset the player's position to the starting point if touching black
+                    this.position = { x: 50, y: 80 };
+                    this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                    return; // Exit early since we've detected a black pixel
+                }
+    
+                if (isRed(r, g, b, a)) {
+                    // Redirect to a new page if red is detected
+                    this.position = { x: 1200, y: 470 };
+                    this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                    prompt("Enter your hacks");
+                    return; // Exit early after redirection
+                }
+            }
+        }
+    
         // Update or change position according to velocity events
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+    
         // Ensure the player stays within the canvas boundaries
-        // Bottom of the canvas
         if (this.position.y + this.height > GameEnv.innerHeight) {
             this.position.y = GameEnv.innerHeight - this.height;
             this.velocity.y = 0;
         }
-        // Top of the canvas
         if (this.position.y < 0) {
             this.position.y = 0;
             this.velocity.y = 0;
         }
-        // Right of the canvas
         if (this.position.x + this.width > GameEnv.innerWidth) {
             this.position.x = GameEnv.innerWidth - this.width;
             this.velocity.x = 0;
         }
-        // Left of the canvas
         if (this.position.x < 0) {
             this.position.x = 0;
             this.velocity.x = 0;
         }
     }
+    
     /**
      * Binds key event listeners to handle player movement.
      *
