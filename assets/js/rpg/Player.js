@@ -184,7 +184,7 @@ class Player {
     
                 if (isRed(r, g, b, a)) {
                     // Redirect to a new page if red is detected
-                    this.position = { x: 1200, y: 470 };
+                    this.position = { x: 900, y: 470 };
                     this.velocity = { x: 0, y: 0 }; // Stop any velocity
                     prompt("Enter your hacks");
                     return; // Exit early after redirection

@@ -21,7 +21,7 @@ export class Background {
 
         if (this.image) {
             // Draw the background image scaled to the canvas size
-            ctx.drawImage(this.image, 0, 0, width, height);
+            ctx.drawImage(this.image, 0, 0, width-300, height);
         } else {
             // Fill the canvas with white if no background image is provided
             ctx.fillStyle = '#87CEEB';
