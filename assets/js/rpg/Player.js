@@ -148,8 +148,8 @@ class Player {
         const yPos = Math.floor(this.position.y);
         
         // Player's width and height (280x256)
-        const playerWidth = this.width-1;  // Assuming this.width is 280
-        const playerHeight = this.height-1; // Assuming this.height is 256
+        const playerWidth = this.width-2;  // Assuming this.width is 280
+        const playerHeight = this.height-2; // Assuming this.height is 256
     
         // Check a subset of pixels in the player's bounding box
         const sampleRate = 10; // You can adjust this to balance performance (check every 10th pixel)
