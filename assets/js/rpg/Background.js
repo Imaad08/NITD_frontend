@@ -16,12 +16,12 @@ export class Background {
     */
     draw() {
         const ctx = GameEnv.ctx;
-        const width = GameEnv.innerWidth;
+        const width = GameEnv.innerWidth-300;
         const height = GameEnv.innerHeight;
 
         if (this.image) {
             // Draw the background image scaled to the canvas size
-            ctx.drawImage(this.image, 0, 0, width-300, height);
+            ctx.drawImage(this.image, 0, 0, width, height);
         } else {
             // Fill the canvas with white if no background image is provided
             ctx.fillStyle = '#87CEEB';

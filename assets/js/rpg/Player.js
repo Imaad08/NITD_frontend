@@ -1,4 +1,5 @@
 import GameEnv from './GameEnv.js';
+
 // Define non-mutable constants as defaults
 const SCALE_FACTOR = 25; // 1/nth of the height of the canvas
 const STEP_FACTOR = 100; // 1/nth, or N steps up and across the canvas
@@ -69,7 +70,7 @@ class Player {
         // Set the initial size of the player
         this.size = GameEnv.innerHeight / this.scaleFactor;
         // Initialize the player's position and velocity
-        this.position = { x: 50, y: 80};
+        this.position = { x: 900, y: 470};
         this.velocity = { x: 0, y: 0 };
         // Set the initial size and velocity of the player
         this.resize();
@@ -146,48 +147,75 @@ class Player {
         // Get player's position, using Math.floor to ensure pixel alignment
         const xPos = Math.floor(this.position.x);
         const yPos = Math.floor(this.position.y);
-        
+    
         // Player's width and height (280x256)
-        const playerWidth = this.width-2;  // Assuming this.width is 280
-        const playerHeight = this.height-2; // Assuming this.height is 256
+        const playerWidth = Math.floor(this.width);  // Assuming this.width is 280
+        const playerHeight = Math.floor(this.height); // Assuming this.height is 256
     
         // Check a subset of pixels in the player's bounding box
-        const sampleRate = 10; // You can adjust this to balance performance (check every 10th pixel)
+        const sampleRate = 10; // Adjust this to balance performance
         const imageData = GameEnv.ctx.getImageData(xPos, yPos, playerWidth, playerHeight);
         const pixels = imageData.data; // This returns an array [r, g, b, a, r, g, b, a, ...]
+    
+        const totalPixels = pixels.length; // The total number of RGBA values in the array
     
         const isBlack = (r, g, b, a) => {
             return r === 0 && g === 0 && b === 0 && a === 255;
         };
     
         const isRed = (r, g, b, a) => {
-            return r === 237 && g === 28 && b === 36 && a === 255; // Checking for the new red color
+            return r === 219 && g === 56 && b === 50 && a === 255;
+        };
+       
+        const isRedTwo = (r, g, b, a) => {
+            return r === 237 && g === 28 && b === 36 && a === 255;
         };
     
         // Check pixels within the player's bounding box at the sample rate
         for (let y = 0; y < playerHeight; y += sampleRate) {
             for (let x = 0; x < playerWidth; x += sampleRate) {
                 const index = (y * playerWidth + x) * 4; // Index for the (r, g, b, a) values
-                const r = pixels[index];
-                const g = pixels[index + 1];
-                const b = pixels[index + 2];
-                const a = pixels[index + 3];
                 
-                //console.log(`Middle pixel RGB: R=${r}, G=${g}, B=${b}, A=${a}`);
-
-                if (isBlack(r, g, b, a)) {
-                    // Reset the player's position to the starting point if touching black
-                    this.position = { x: 50, y: 80 };
-                    this.velocity = { x: 0, y: 0 }; // Stop any velocity
-                    return; // Exit early since we've detected a black pixel
-                }
+                // Ensure index is within the bounds of the pixels array
+                if (index >= 0 && index + 3 < totalPixels) {
+                    const r = pixels[index];
+                    const g = pixels[index + 1];
+                    const b = pixels[index + 2];
+                    const a = pixels[index + 3];
     
-                if (isRed(r, g, b, a)) {
-                    // Redirect to a new page if red is detected
-                    this.position = { x: 900, y: 470 };
-                    this.velocity = { x: 0, y: 0 }; // Stop any velocity
-                    prompt("Enter your hacks");
-                    return; // Exit early after redirection
+                    // Log values for debugging
+                    console.log(`Index: ${index}`);
+                    console.log(`X: ${x}`);
+                    console.log(`Y: ${y}`);
+                    console.log(`Pixel RGB: R=${r}, G=${g}, B=${b}, A=${a}`);
+                    console.log(`Player Width: ${playerWidth}`);
+    
+                    if (isBlack(r, g, b, a)) {
+                        // Reset the player's position to the starting point if touching black
+                        this.position = { x: 50, y: 80 };
+                        this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                        return; // Exit early since we've detected a black pixel
+                        console.log(`BLACK`);
+                    }
+    
+                    if (isRed(r, g, b, a)) {
+                        // Redirect to a new page if red is detected
+                        this.position = { x: 900, y: 470 };
+                        this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                        prompt("Enter your hacks"); // This is just a placeholder
+                        return; // Exit early after redirection
+                        console.log(`RED`);
+                    }
+
+                    if (isRedTwo(r, g, b, a)) {
+                        // Redirect to a new page if red is detected
+                        this.position = { x: 900, y: 470 };
+                        this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                        prompt("Enter your hacks"); // This is just a placeholder
+                        return; // Exit early after redirection
+                        console.log(`RED TWO`);
+                    }
+
                 }
             }
         }
@@ -213,7 +241,7 @@ class Player {
             this.position.x = 0;
             this.velocity.x = 0;
         }
-    }
+    }    
     
     /**
      * Binds key event listeners to handle player movement.
