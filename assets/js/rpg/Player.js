@@ -338,6 +338,14 @@ class Player {
                 break;
         }
     }
-    
+    /**
+     * Handles double click events to pop up
+     *
+     *
+     * @param {Object} event - The keyup event object.
+     */
+    handleDoubleClick({ keyCode }) {
+        
+    }
 }
 export default Player;
