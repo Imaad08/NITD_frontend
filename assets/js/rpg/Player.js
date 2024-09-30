@@ -193,14 +193,14 @@ class Player {
     
                     if (isBlack(r, g, b, a)) {
                         // Reset the player's position to the starting point if touching black
-                        this.position = { x: 1200, y: 0 }; //for debugging, remove after
+                        this.position = { x: 40, y: 80 }; //for debugging, remove after
                         //this.position = { x: 50, y: 80 }; this is original
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
                         return; // Exit early since we've detected a black pixel
                         console.log(`BLACK`);
                     }
     
-                    if (isRed(r, g, b, a)) {
+                    if (isRed(r, g, b, a) || isRedTwo(r, g, b, a)) {
                         // Redirect to a new page if red is detected
                         this.position = { x: 900, y: 470 };
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
