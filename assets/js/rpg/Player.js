@@ -204,26 +204,34 @@ class Player {
                         // Redirect to a new page if red is detected
                         this.position = { x: 900, y: 470 };
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
-                        let userInput =prompt("Enter your hacks");
-    
-                        if (userInput !== null) {
+                        let userInput1 = prompt("Enter your name: ");
+                    
+                        if (userInput1 !== null) {
                             // User clicked "OK"
                             // Process the userInput here (e.g., display it or send it to a server)
-                            console.log("User entered:", userInput);
-                            fetch('http://127.0.0.1:8086/api/players/')
-                                .then(response => {
-                                    if (!response.ok) {
+                            console.log("User entered:", userInput1);
+                    
+                            // Send a POST request to add userInput1 to the database
+                            fetch('http://127.0.0.1:8086/api/turtle_game_player/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ name: userInput1 })
+                            })
+                            .then(response => {
+                                if (!response.ok) {
                                     throw new Error('Network response was not ok');
-                                    }
-                                    return response.json(); // Assuming the response is JSON
-                                })
-                                .then(data => {
-                                    // Do something with the data
-                                    console.log(data);
-                                })
-                                .catch(error => {
-                                    console.error('There was a problem with the fetch operation:', error);
-                                });
+                                }
+                                return response.json(); // Assuming the response is JSON
+                            })
+                            .then(data => {
+                                // Do something with the data
+                                console.log('Data saved:', data);
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with the fetch operation:', error);
+                            });
                         } else {
                             // User clicked "Cancel"
                             console.log("User canceled the prompt.");
