@@ -338,14 +338,6 @@ class Player {
                 break;
         }
     }
-    /**
-     * Handles double click events to pop up
-     *
-     *
-     * @param {Object} event - The keyup event object.
-     */
-    handleDoubleClick({ keyCode }) {
-        prompt("Enter your name");
-    }
+    
 }
 export default Player;
