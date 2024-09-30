@@ -204,7 +204,7 @@ class Player {
                         // Redirect to a new page if red is detected
                         this.position = { x: 900, y: 470 };
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
-                        let userInput1 = prompt("Enter your name: ");
+                        let userInput1 = prompt("Enter your name and the link to your blog: ");
                     
                         if (userInput1 !== null) {
                             // User clicked "OK"
