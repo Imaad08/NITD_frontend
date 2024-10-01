@@ -193,8 +193,8 @@ class Player {
     
                     if (isBlack(r, g, b, a)) {
                         // Reset the player's position to the starting point if touching black
-                        this.position = { x: 1300, y: 80 }; //for debugging, remove after
-                        //this.position = { x: 50, y: 80 }; this is original
+                        //this.position = { x: 1300, y: 80 }; //for debugging, remove after
+                        this.position = { x: 50, y: 80 }; //original
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
                         return; // Exit early since we've detected a black pixel
                         console.log(`BLACK`);
