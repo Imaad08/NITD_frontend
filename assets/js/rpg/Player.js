@@ -46,6 +46,8 @@ class Player {
     constructor(sprite = null) {
         // Initialize the player's scale based on the game environment
         this.scale = { width: GameEnv.innerWidth, height: GameEnv.innerHeight };
+
+        this.mazeCompleted = false; // OOGABOOGA
         // Check if sprite data is provided
         if (sprite) {
             this.scaleFactor = sprite.data.SCALE_FACTOR || SCALE_FACTOR;
@@ -149,8 +151,8 @@ class Player {
         const yPos = Math.floor(this.position.y);
     
         // Player's width and height (280x256)
-        const playerWidth = Math.floor(this.width);  // Assuming this.width is 280
-        const playerHeight = Math.floor(this.height); // Assuming this.height is 256
+        const playerWidth = Math.floor(this.width/1.2);  // Assuming this.width is 280 OOGABOOGA
+        const playerHeight = Math.floor(this.height/1.2); // Assuming this.height is 256 OOGABOOGA
     
         // Check a subset of pixels in the player's bounding box
         const sampleRate = 10; // Adjust this to balance performance
@@ -171,7 +173,32 @@ class Player {
         const isRedTwo = (r, g, b, a) => {
             return r === 237 && g === 28 && b === 36 && a === 255;
         };
+        // OOGABOOGA
+        const flyingImage = document.getElementById('randomImage');
+        const imgRect = flyingImage.getBoundingClientRect(); // Get the image's bounding box
+        const playerRect = { 
+            x: this.position.x, 
+            y: this.position.y, 
+            width: this.width, 
+            height: this.height 
+        };
     
+        // Check if player and flying image collide
+        const isColliding = (
+            playerRect.x < imgRect.right &&
+            playerRect.x + playerRect.width > imgRect.left &&
+            playerRect.y < imgRect.bottom &&
+            playerRect.y + playerRect.height > imgRect.top
+        );
+        // If player collides with the flying image, reset to the starting position
+        if (isColliding) {
+            console.log("Player touched the flying image! Resetting position...");
+            this.position = { x: 40, y: 80 };  // Reset to starting position
+            this.velocity = { x: 0, y: 0 };    // Stop any velocity
+            return; // Exit early after resetting
+        }
+    // OOGABOOGA    
+
         // Check pixels within the player's bounding box at the sample rate
         for (let y = 0; y < playerHeight; y += sampleRate) {
             for (let x = 0; x < playerWidth; x += sampleRate) {
@@ -196,14 +223,15 @@ class Player {
                         //this.position = { x: 1300, y: 80 }; //for debugging, remove after
                         this.position = { x: 50, y: 80 }; //original
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
-                        return; // Exit early since we've detected a black pixel
                         console.log(`BLACK`);
+                        return; // Exit early since we've detected a black pixel
                     }
     
                     if (isRed(r, g, b, a) || isRedTwo(r, g, b, a)) {
                         // Redirect to a new page if red is detected
                         this.position = { x: 900, y: 470 };
                         this.velocity = { x: 0, y: 0 }; // Stop any velocity
+                        this.mazeCompleted = true; // OOGABOOGA
                         let userInput1 = prompt("Enter your name and the link to your blog: ");
                     
                         if (userInput1 !== null) {
@@ -236,8 +264,9 @@ class Player {
                             // User clicked "Cancel"
                             console.log("User canceled the prompt.");
                         }
-                        return; // Exit early after redirection
                         console.log(`RED`);
+                        return; // Exit early after redirection
+                        
                     }
 /*
                     if (isRedTwo(r, g, b, a)) {
@@ -276,6 +305,10 @@ class Player {
             this.velocity.x = 0;
         }
     }    
+
+    isMazeCompleted() {
+        return this.mazeCompleted;
+    }
     
     /**
      * Binds key event listeners to handle player movement.
