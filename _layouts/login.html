@@ -1,0 +1,412 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/home.css">
+    <script src="https://kit.fontawesome.com/23cecef777.js" crossorigin="anonymous"></script>
+    <title>Home</title>
+  </head>
+  <style>
+    * {
+        padding: 0;
+        margin: 0;
+        color: white; /* Set default text color to white */
+    }
+
+    body {
+        background-color: #121212;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 196px;
+        background-color: #000000;
+        padding: 24px;
+        color: #b3b3b3; /* Update text color in sidebar */
+    }
+
+    .sidebar .logo img {
+        width: 130px;
+    }
+
+    .sidebar .navigation ul {
+        list-style: none;
+        margin-top: 20px;
+    }
+
+    .sidebar .navigation ul li {
+        padding: 10px 0px;
+    }
+
+    .sidebar .navigation ul li a {
+        color: #b3b3b3;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    .sidebar .navigation ul li a:hover,
+    .sidebar .navigation ul li a:active,
+    .sidebar .navigation ul li a:focus {
+        color: #ffffff;
+    }
+
+    .sidebar .navigation ul li a:hover .fa,
+    .sidebar .navigation ul li a:active .fa,
+    .sidebar .navigation ul li a:focus .fa {
+        color: #b3b3b3;
+    }
+
+    .sidebar .navigation ul li .fa {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .sidebar .navigation ul li a:hover .fa:hover,
+    .sidebar .navigation ul li a:hover .fa:active,
+    .sidebar .navigation ul li a:hover .fa:focus {
+        color: #ffffff;
+    }
+
+    .sidebar .policies {
+        position: absolute;
+        bottom: 100px;
+    }
+
+    .sidebar .policies ul {
+        list-style: none;
+    }
+
+    .sidebar .policies ul li {
+        padding-bottom: 5px;
+    }
+
+    .sidebar .policies ul li a {
+        color: #b3b3b3;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 10px;
+    }
+
+    .sidebar .policies ul li a:hover,
+    .sidebar .policies ul li a:active,
+    .sidebar .policies ul li a:focus {
+        text-decoration: underline;
+    }
+
+    .main-container {
+        margin-left: 245px;
+        margin-bottom: 100px;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        background-color: #101010;
+        padding: 14px 30px;
+        color: #b3b3b3; /* Update text color in topbar */
+    }
+
+    .topbar .prev-next-buttons button {
+        color: #7a7a7a;
+        cursor: not-allowed;
+        width: 34px;
+        height: 34px;
+        border-radius: 100%;
+        font-size: 18px;
+        border: 0px;
+        background-color: #090909;
+        margin-right: 10px;
+    }
+
+    .topbar .navbar {
+        display: flex;
+        align-items: center;
+    }
+
+    .topbar .navbar ul {
+        list-style: none;
+    }
+
+    .topbar .navbar ul li {
+        display: inline-block;
+        margin: 0px 8px;
+        width: 70px;
+    }
+
+    .topbar .navbar ul li a {
+        color: #b3b3b3;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .topbar .navbar ul li a:hover,
+    .topbar .navbar ul li a:active,
+    .topbar .navbar ul li a:focus {
+        color: #ffffff;
+        font-size: 15px;
+    }
+
+    .topbar .navbar ul li.divider {
+        color: #ffffff;
+        font-size: 26px;
+        margin: 0px 20px;
+        width: auto;
+    }
+
+    .topbar .navbar button {
+        background-color: #1db954;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 14px 30px;
+        border: 0px;
+        border-radius: 40px;
+        cursor: pointer;
+        margin-left: 20px;
+    }
+
+    .topbar .navbar button:hover,
+    .topbar .navbar button:active,
+    .topbar .navbar button:focus {
+        background-color: #f2f2f2;
+    }
+
+    .spotify-playlists {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh; /* Decreased height to make it occupy less vertical space */
+      padding: 20px; /* Adjusted padding */
+      text-align: center; /* Center text */
+      margin-top: -10px; /* Moved up */
+      margin-left: -100px; /* Moved left */
+  }
+
+    .spotify-playlists h2 {
+        color: #ffffff; /* Update text color in playlist header */
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .spotify-playlists form label {
+        display: block; /* Ensure each label and input pair is on its own line */
+        margin-bottom: 10px; /* Add some spacing between elements */
+    }
+
+    .spotify-playlists form input[type="text"],
+    .spotify-playlists form input[type="password"] {
+        width: 300px; /* Set the width of the textboxes */
+        padding: 12px; /* Add padding inside the textboxes */
+        border: none; /* Remove default border */
+        border-radius: 10px; /* Add rounded corners */
+        margin-bottom: 20px; /* Add some spacing between textboxes */
+        color: black; /* Set text color to black */
+    }
+
+    .spotify-playlists form button {
+        background-color: #1db954; /* Set background color to green */
+        color: white; /* Set text color to white */
+        padding: 15px; /* Increase padding for the button */
+        border: none; /* Remove default border */
+        border-radius: 10px; /* Add rounded corners */
+        cursor: pointer;
+        width: 300px; /* Make the button the same width as the textboxes */
+        display: block; /* Display the button on a separate line */
+        margin-bottom: 15px
+    }
+
+    .spotify-playlists form button:hover {
+        background-color: #179343; /* Darken the background color on hover */
+    }
+
+    .preview {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to right, #ae2896, #509bf5);
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .preview h6 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .preview p {
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .preview button {
+        background-color: #ffffff;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 14px 30px;
+        border: 0px;
+        border-radius: 40px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="sidebar">
+      <div class="logo">
+        <a href="#">
+          <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="fa fa-home"></span>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fa-search"></span>
+              <span>Search</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fas fa-book"></span>
+              <span>Your Library</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="create.html">
+              <span class="fa fas fa-plus-square"></span>
+              <span>Create</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fas fa-heart"></span>
+              <span>Liked Songs</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="policies">
+        <ul>
+          <li>
+            <a href="#">Cookies</a>
+          </li>
+          <li>
+            <a href="#">Privacy</a>
+          </li>
+        </ul> 
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="topbar">
+        <div class="prev-next-buttons">
+          <button type="button" class="fa fas fa-chevron-left"></button>
+          <button type="button" class="fa fas fa-chevron-right"></button>
+        </div>
+
+        <div class="navbar">
+          <ul>
+            <li>
+              <a href="#">Premium</a>
+            </li>
+            <li>
+              <a href="#">Support</a>
+            </li>
+            <li>
+              <a href="#">Download</a>
+            </li>
+            <li class="divider">|</li>
+          </ul>
+          <button type="button" id="loginButton">
+            <a href="/_layouts/login.html">Log In</a>
+        </button>
+        </div>
+      </div>
+
+      <div class="spotify-playlists">
+        <h2></h2>
+        <form onsubmit="login_user(event)">
+          <label for="uid"><b>Username</b></label>
+          <input type="text" id="uid" placeholder="Enter Username" name="uid" required>
+          <label for="password"><b>Password</b></label>
+          <input type="password" id="password" placeholder="Enter Password" name="password" required>
+          <button type="submit" class='button'>
+            <a>log in</a>
+        </button>
+          <div>
+              <span class="psw">Need an account? <a href="/_layouts/sign1.html">Sign Up</a></span>
+          </div>
+      </form>
+
+      <script type="module">
+        function login_user(event) {
+
+          console.log("asijdaijsd 2")
+            event.preventDefault(); // Prevent the default form submission behavior
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            
+            // Update the API endpoint to use port 8000
+            const url = 'http://127.0.0.1:8086/api/users/authenticate';
+            
+            const body = {
+                uid: document.getElementById("uid").value,
+                password: document.getElementById("password").value,
+            };
+            
+            const authOptions = {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: myHeaders,
+                body: JSON.stringify(body)
+            };
+            
+            fetch(url, authOptions)
+            .then(response => {
+                if (!response.ok) {
+                    const errorMsg = 'Login error: ' + response.status;
+                    console.log(errorMsg);
+                    return;
+                }
+                window.location.href = "https://www.google.com/"; //CHANGE THIS
+            })
+            .catch(err => {
+                console.error(err);
+            });
+
+
+            sessionStorage.setItem("log", true);
+        }
+        
+        window.login_user = login_user;
+    </script>
+      
+  </body>
