@@ -1,7 +1,7 @@
 ---
 layout: none
 hide: false
-permalink: /home
+permalink: /transactions
 ---
 
 <head>
@@ -302,7 +302,7 @@ permalink: /home
         </div>
       </div>
       <div class="spotify-playlists">
-        <h2>Personal Finance</h2>
+        <h2>Transaction Tracking</h2>
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -312,20 +312,7 @@ permalink: /home
     <title>Personal Finance Dashboard</title>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid-item" onclick="location.href='/NITD_frontend/transactions'">
-            <h3>Transaction Tracking</h3>
-        </div>
-        <div class="grid-item" onclick="location.href='/NITD_frontend/budget'">
-            <h3>Budgeting</h3>
-        </div>
-        <div class="grid-item" onclick="location.href='/NITD_frontend/graphs'">
-            <h3>Graphical Reports</h3>
-        </div>
-        <div class="grid-item" onclick="location.href='/NITD_frontend/sorting'">
-            <h3>Sorting & Searching</h3>
-        </div>
-        <!-- Add more boxes as needed -->
+        <!-- ADD YOUR CODE HERE -->
     </div>
 </body>
 </html>
