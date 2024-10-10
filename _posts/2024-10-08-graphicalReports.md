@@ -370,6 +370,27 @@ permalink: /graphs
         generateGraph(); 
     }
 
+function generateGraph() {
+    const data = [{
+        x: expenses.map(exp => exp.name), 
+        y: expenses.map(exp => exp.amount), 
+        type: 'bar' 
+    }];
+
+    const layout = {
+        title: 'Expenses Breakdown',
+        height: 400,
+        width: 500,
+        xaxis: {
+            title: 'Expense Name'
+        },
+        yaxis: {
+            title: 'Amount ($)'
+        }
+    };
+
+    Plotly.newPlot('expenseGraph', data, layout);
+}
 
 </script>
 
