@@ -328,51 +328,67 @@ permalink: /graphs
 </div>
 
 <script>
-    let expenses = [];
+  let expenses = []
 
-    function toggleExpenseInput() {
-        const inputForm = document.getElementById('expense-input');
-        inputForm.style.display = inputForm.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function addExpense() {
-        const name = document.getElementById('expenseName').value;
-        const amount = parseFloat(document.getElementById('expenseAmount').value);
-        if (name && amount) {
-            expenses.push({ name, amount });
-            document.getElementById('expenseName').value = '';
-            document.getElementById('expenseAmount').value = '';
-            displayExpenses();
-        }
-    }
-
-    function viewHistory() {
-        const history = document.getElementById('expense-history');
-        history.style.display = history.style.display === 'none' ? 'block' : 'none';
+window.onload = function() {
+    const storedExpenses = localStorage.getItem('expenses');
+    if (storedExpenses) {
+        expenses = JSON.parse(storedExpenses);
         displayExpenses();
+        generateGraph();
     }
+};
 
-    function displayExpenses() {
-        const list = document.getElementById('expense-list');
-        list.innerHTML = '';
-        expenses.forEach((expense, index) => {
-            const li = document.createElement('li');
-            li.textContent = `${expense.name}: $${expense.amount}`;
-            li.setAttribute('data-index', index);
-            li.onclick = () => removeExpense(index);
-            list.appendChild(li);
-        });
-    }
+function saveToLocalStorage() {
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+}
 
-    function removeExpense(index) {
-        expenses.splice(index, 1);
+function toggleExpenseInput() {
+    const inputForm = document.getElementById('expense-input');
+    inputForm.style.display = inputForm.style.display === 'none' ? 'block' : 'none';
+}
+
+function addExpense() {
+    const name = document.getElementById('expenseName').value;
+    const amount = parseFloat(document.getElementById('expenseAmount').value);
+    if (name && amount) {
+        expenses.push({ name, amount });
+        document.getElementById('expenseName').value = '';
+        document.getElementById('expenseAmount').value = '';
         displayExpenses();
+        saveToLocalStorage(); 
         generateGraph(); 
     }
+}
+
+function viewHistory() {
+    const history = document.getElementById('expense-history');
+    history.style.display = history.style.display === 'none' ? 'block' : 'none';
+    displayExpenses();
+}
+
+function displayExpenses() {
+    const list = document.getElementById('expense-list');
+    list.innerHTML = '';
+    expenses.forEach((expense, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${expense.name}: $${expense.amount}`;
+        li.setAttribute('data-index', index);
+        li.onclick = () => removeExpense(index);
+        list.appendChild(li);
+    });
+}
+
+function removeExpense(index) {
+    expenses.splice(index, 1);
+    displayExpenses();
+    saveToLocalStorage();  
+    generateGraph();  
+}
 
 function generateGraph() {
     const data = [{
-        x: expenses.map(exp => exp.name), 
+        x: expenses.map(exp => exp.name),
         y: expenses.map(exp => exp.amount), 
         type: 'bar' 
     }];
