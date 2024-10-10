@@ -14,20 +14,17 @@ permalink: /graphs
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>Personal Finance Dashboard</title>
 <style>
-    /* Reset padding and margin for all elements */
     * {
         padding: 0;
         margin: 0;
     }
 
-    /* Body styling */
     body {
         background-color: #121212;
         font-family: 'Montserrat', sans-serif;
         color: white; /* Ensures all text is white */
     }
 
-    /* Sidebar styling */
     .sidebar {
         position: fixed;
         left: 0;
@@ -95,14 +92,12 @@ permalink: /graphs
         text-decoration: underline;
     }
 
-    /* Main container styling */
     .main-container {
         margin-left: 245px;
         margin-bottom: 100px;
         padding: 20px; /* Added padding for better spacing */
     }
 
-    /* Topbar styling */
     .topbar {
         display: flex;
         justify-content: space-between;
@@ -170,7 +165,6 @@ permalink: /graphs
         background-color: #f2f2f2;
     }
 
-    /* Spotify playlists styling */
     .spotify-playlists {
         padding: 20px 40px;
     }
@@ -181,7 +175,6 @@ permalink: /graphs
         margin-bottom: 20px;
     }
 
-    /* Preview bar styling */
     .preview {
         position: fixed;
         bottom: 0;
@@ -218,7 +211,6 @@ permalink: /graphs
         cursor: pointer;
     }
 
-    /* Grid styling */
     .grid-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* Set to 2 columns */
@@ -241,7 +233,6 @@ permalink: /graphs
         background-color: #e2e2e2;
     }
 
-    /* Button styling */
     button {
         background-color: #1db954;
         color: white;
@@ -257,7 +248,6 @@ permalink: /graphs
         background-color: #179343;
     }
 
-    /* Headings styling */
     .h3 {
         color: #54AF71;
     }
@@ -316,7 +306,6 @@ permalink: /graphs
     <div class="spotify-playlists">
         <h2>Expense Tracker</h2>
 
-        <!-- Input Form for Adding Expenses -->
         <div id="expense-input" style="display: none;">
             <h3>Add a New Expense</h3>
             <input type="text" id="expenseName" placeholder="Expense Name">
@@ -324,13 +313,11 @@ permalink: /graphs
             <button onclick="addExpense()">Add</button>
         </div>
 
-        <!-- Table for Viewing Expenses -->
         <div id="expense-history" style="display: none;">
             <h3>Expense History</h3>
             <ul id="expense-list"></ul>
         </div>
 
-        <!-- Plotly Graph -->
         <div id="graph" style="width:100%;max-width:700px;">
             <h3>Expense Graph</h3>
             <div id="expenseGraph"></div>
@@ -341,6 +328,48 @@ permalink: /graphs
 </div>
 
 <script>
+    let expenses = [];
+
+    function toggleExpenseInput() {
+        const inputForm = document.getElementById('expense-input');
+        inputForm.style.display = inputForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addExpense() {
+        const name = document.getElementById('expenseName').value;
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
+        if (name && amount) {
+            expenses.push({ name, amount });
+            document.getElementById('expenseName').value = '';
+            document.getElementById('expenseAmount').value = '';
+            displayExpenses();
+        }
+    }
+
+    function viewHistory() {
+        const history = document.getElementById('expense-history');
+        history.style.display = history.style.display === 'none' ? 'block' : 'none';
+        displayExpenses();
+    }
+
+    function displayExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = '';
+        expenses.forEach((expense, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${expense.name}: $${expense.amount}`;
+            li.setAttribute('data-index', index);
+            li.onclick = () => removeExpense(index);
+            list.appendChild(li);
+        });
+    }
+
+    function removeExpense(index) {
+        expenses.splice(index, 1);
+        displayExpenses();
+        generateGraph(); 
+    }
+
 
 </script>
 
