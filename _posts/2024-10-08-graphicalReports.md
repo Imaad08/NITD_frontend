@@ -21,7 +21,7 @@ permalink: /graphs
     body {
         background-color: #121212;
         font-family: 'Montserrat', sans-serif;
-        color: white; /* Ensures all text is white */
+        color: black; /* Ensures all text is white */
     }
     .sidebar {
         position: fixed;
@@ -241,7 +241,7 @@ permalink: /graphs
         border-radius: 5px;
         outline: none;
         background-color: #FFFFFF; /* Input field background */
-        color: #ffffff;
+        color: #000000;
     }
     #expense-input input::placeholder {
         color: #aaaaaa;
@@ -320,11 +320,11 @@ permalink: /graphs
             <button onclick="addExpense()">Add</button>
         </div>
         <div id="expense-history" style="display: none;">
-            <h3>Expense History</h3>
+            <h2>Expense History</h2>
             <ul id="expense-list"></ul>
         </div>
         <div id="graph" style="width:100%;max-width:700px;">
-            <h3>Expense Graph</h3>
+            <h2>Expense Graph</h2>
             <div id="expenseGraph"></div>
             <button onclick="generateGraph()">Generate Graph</button>
         </div>
