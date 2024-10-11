@@ -39,6 +39,12 @@ permalink: /graphs
         width: 130px;
     }
 
+       .sidebar .logo h2 {
+    color: #57B660; /* Change color to green */
+}
+.sidebar .logo a {
+    text-decoration: none; /* Remove underline */
+}
     .sidebar .navigation ul {
         list-style: none;
         margin-top: 20px;
@@ -258,9 +264,9 @@ permalink: /graphs
 <body>
 
 <div class="sidebar">
-    <div class="logo">
-        <a href="#">
-            <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+      <div class="logo">
+        <a href="/NITD_frontend/home">
+            <h2> Home </h2>
         </a>
     </div>
     <div class="navigation">
