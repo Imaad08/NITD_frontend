@@ -240,39 +240,33 @@ permalink: /transactions
       <div class="navigation">
         <ul>
           <li>
-            <a href="#" onclick="toggleExpenseInput()">
+            <a href="/NITD_frontend/transactions" onclick="()">
                             <span class="fa fas fa-plus-square"></span>
-                            <span>Add Expense</span>
+                            <span>Transactions</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="viewHistory()">
+                        <a href="/NITD_frontend/budget" onclick="()">
                             <span class="fa fas fa-book"></span>
-                            <span>View History</span>
+                            <span>Budgeting</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="removeSelectedExpense()">
+                        <a href="/NITD_frontend/graphs" onclick="()">
                             <span class="fa fas fa-minus-square"></span>
-                            <span>Remove Expense</span>
+                            <span>Graphs</span>
             </a>
           </li>
+          <li>
+            <a href="/NITD_frontend/sorting" onclick="()">
+                            <span class="fa fas fa-heart"></span>
+                            <span>Sorting and Searching</span>
+                        </a>
+                    </li>
         </ul>
       </div>
       <div class="navigation">
         <ul>
-          <li>
-            <a href="create.html">
-              <span class="fa fas fa-plus-square"></span>
-              <span>Create</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="fa fas fa-heart"></span>
-              <span>Liked Songs</span>
-            </a>
-          </li>
         </ul>
       </div>
       <div class="policies">
