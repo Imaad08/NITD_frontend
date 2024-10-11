@@ -351,7 +351,7 @@ permalink: /sorting
         </div>
       </div>
       <div class="spotify-playlists">
-        <h2>Sorting and searching</h2>
+        <h2></h2>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -361,37 +361,50 @@ permalink: /sorting
 </head>
 <body>
         <div class="spotify-playlists">
-        <h2></h2>
-        <form onsubmit="stock(event)">
-          <label for="uid"><b>Ticker Symbol</b></label>
-          <input type="text" id="stockChart" placeholder="Ticker Symbol" name="ticker" required>
-          <button type="submit" class='button'>
-            <a>view price</a>
-        </button>
-        <script>
-        // Static stock data for demonstration
-        const labels = ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'];
-        const prices = [150, 155, 160, 158, 162];
-        // Create the chart
-        const ctx = document.getElementById('stockChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Stock Price ($)',
-                    data: prices,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: { title: { display: true, text: 'Date' }},
-                    y: { title: { display: true, text: 'Price ($)' }}
-                }
+        <h2>Searching</h2>
+        <form onsubmit="fetchStockData(event)">
+            <label for="ticker"><b>Ticker Symbol</b></label>
+            <input type="text" id="ticker" placeholder="Ticker Symbol" required>
+            <button type="submit">View Price</button>
+        </form>
+        <canvas id="stockChart" width="400" height="200"></canvas> <!-- Canvas for Chart -->
+    </div>
+    <script>
+        async function fetchStockData(event) {
+            event.preventDefault();
+            const ticker = document.getElementById('ticker').value;
+            const apiKey = '9ULSDIMSGBSZEUWN'; // Replace with your Alpha Vantage API key
+            const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data['Time Series (Daily)']) {
+                const stockData = data['Time Series (Daily)'];
+                const labels = Object.keys(stockData).reverse(); // Get dates
+                const prices = Object.values(stockData).map(day => day['4. close']).reverse(); // Get closing prices
+                // Create the chart
+                const ctx = document.getElementById('stockChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: `${ticker} Stock Price`,
+                            data: prices,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: { title: { display: true, text: 'Date' }},
+                            y: { title: { display: true, text: 'Price ($)' }}
+                        }
+                    }
+                });
+            } else {
+                alert('Stock data not found');
             }
-        });
+        }
     </script>
