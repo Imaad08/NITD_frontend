@@ -241,7 +241,7 @@ permalink: /graphs
         border-radius: 5px;
         outline: none;
         background-color: #FFFFFF; /* Input field background */
-        color: #ffffff;
+        color: #000000;
     }
     #expense-input input::placeholder {
         color: #aaaaaa;
