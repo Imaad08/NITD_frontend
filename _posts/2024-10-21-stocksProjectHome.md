@@ -2,6 +2,7 @@
 layout: none
 hide: false
 permalink: /stocks/home
+title: Stocks Home
 ---
 
 <html lang="en">
@@ -25,13 +26,11 @@ permalink: /stocks/home
       background-size: 200% 200%;
       animation: gradient-animation 10s ease infinite; /* Moving gradient background */
     }
-
     @keyframes gradient-animation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     /* Top bar */
     .topbar {
       position: fixed;
@@ -201,7 +200,7 @@ permalink: /stocks/home
       <li><a href="#">Community</a></li>
       <li><a href="#">Case Studies</a></li>
     </ul>
-    <button class="login-button">Get Started</button>
+    <button class="login-button">Login</button>
   </div>
 
   <!-- Gradient bar in the middle -->
@@ -232,7 +231,7 @@ permalink: /stocks/home
   </div>
 
   <!-- Footer -->
-  <a href="#" class="get-started">Get Started →</a>
+  <a href="#" class="get-started">Login →</a>
 
 </body>
 </html>
