@@ -373,7 +373,7 @@ permalink: /sorting
         async function fetchStockData(event) {
             event.preventDefault();
             const ticker = document.getElementById('ticker').value;
-            const apiKey = '9ULSDIMSGBSZEUWN'; // Replace with your Alpha Vantage API key
+            const apiKey = '4LVWWBWLNGL62D5G'; // Replace with your Alpha Vantage API key
             const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${apiKey}`;
             const response = await fetch(url);
             const data = await response.json();
@@ -405,6 +405,7 @@ permalink: /sorting
                 });
             } else {
                 alert('Stock data not found');
+                console.error("Error fetching stock data:", data);
             }
         }
     </script>
